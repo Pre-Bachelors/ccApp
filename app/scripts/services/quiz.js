@@ -4,81 +4,80 @@ angular.module('ccApp')
 	.factory('Quiz', function($http) {
 	  var service = {};
 
+	  // helper functions
+		var helpers= {
+			// taken from http://stackoverflow.com/questions/7394748/whats-the-right-way-to-decode-a-string-that-has-special-html-entities-in-it
+			decodeHtml: function(html) {
+		    var txt = document.createElement("textarea");
+		    txt.innerHTML = html;
+		    return txt.value;
+		  }
+		};
+
 	  // set up questions
 	  service.entries = [
 	  	{
 	  	  subject:'Maths',
-	  	  value: 1	  	
+	  	  value: 0,
+	  	  equiv: 'requiresQuantitativeSkills'	  	
 	  	},
 	  	{
 	  	  subject:'Writing and Speaking',
-	  	  value: 1	  		  	
+	  	  value: 0,
+	  	  equiv: 'requiresVerbalAndSocialSkills'	  		  	
 	  	},
 	  	{
 	  	  subject:'Competitive',
-	  	  value: 1	  		  	
+	  	  value: 0,
+	  	  equiv: 'easeOfCompetition'	  		  	
 	  	},
 	  	{
 	  	  subject:'Uncertain',
-	  	  value: 1	  		  	
+	  	  value: 0,
+	  	  equiv: 'optionValue'	  		  	
 	  	}
 	  ];
 
-	  // config slider
-	  service.sliderConfig = {
-      ceil: 5,
-      floor: 1,
-      showTicksValues: true,
-      ticksValuesTooltip: function(v) {
-    		switch(v) {
-			    case 1:
-		        return 'Not comfortable';
-			    case 2:
-		        return 'Not very comfortable';
-			    case 3:
-		        return 'Somewhat comfortable';
-			    case 4:
-		        return 'Comfortable';
-			    case 5:
-		        return 'Very comfortable';
-					}
-      }
-    };
-
-	  // get careers (http)
-	/*	$http.jsonp('https://80000hours.org/wp-json/career_profiles')
-		.then(function(data) {
-			service.careers = JSON.parse(data);
-		}, function() {
-			alert('error!');
-		});
-		$http.jsonp('https://80000hours.org/wp-json/career_profiles', {type:"GET", dataType: "jsonp"}).then(function(data) {
-			service.careers = JSON.parse(data);
-		}, function() {
-			alert('error!');
-		});
-		$http({
-		  method: 'GET',
-		  url: 'https://80000hours.org/wp-json/career_profiles',
-		}).then(function successCallback(response) {
-		    // this callback will be called asynchronously
-		    // when the response is available
-		  }, function errorCallback(response) {
-		    // called asynchronously if an error occurs
-		    // or server returns response with an error status.
-		}); */
-
+	     
+	  // get careers
+	  // done locally due to cross-domain ajax requests constraints
 		$http.get('scripts/json/career_profiles.json')
-		.then(function(data) {
-			service.careers = data;
+		.then(function(response) {
+			service.careers = response.data;
+			service.careers.forEach(function(entry) {
+				entry.title = helpers.decodeHtml(entry.title);
+			});
+			service.receivedFlag = true;
 		}, function() {
 			alert('error!');
 		});
 
 
-	  // save answers
+	  // update careers 
+	  service.updateCareers = function(entries) {
+	  	// for every answer
+	  	entries.forEach(function(answer) {
+	  		if (service.careers) {
+		  		// for every career		  		
+		  		service.careers.forEach(function(career) {
+				  // filter out every career that is bigger than answer val
+					  var career_level = parseInt(career.custom_fields[answer.equiv]);
+					  var threshold = answer.value + 1;
+			  		career.show = ( career_level < threshold );
+			  	});
+		  	} else {
+		  		console.log('no careers');
+		  	}
+	  	});
+	  };
 
-	  // sort/update careers --> slider callback --> on change or on end; show ticks, show ticks values, ceil
+
+// sort careers
+
+
+
+// --> slider callback --> on change or on end; show ticks, show ticks values, ceil
+// every time it changes, redo service.careers = service.all_careers;
 
 	  return service;
 	});
