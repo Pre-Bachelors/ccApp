@@ -1,7 +1,7 @@
 <div>
-  <h1>How comfortable are you with:</h1>
+  <h2>How comfortable are you with:</h2>
   <article ng-repeat="entry in entries">
-    <h2>{{entry.subject}}</h2>
+    <h3>{{entry.subject}}</h3>
     <rzslider rz-slider-model="entry.value" rz-slider-options="sliderConfig"></rzslider>
   </article>
 
@@ -11,8 +11,9 @@
     <article ng-repeat="career in careers">
       <h2>{{career.title}} </h2>
       <img src="{{career.thumbnail_url}}" />
-      <p>{{career.custom_fields.summaryHtml}}</p>
-      <p><strong>Key facts on fit: </strong>{{career.custom_fields.keyFactsOnFit}}</p>
+      <p ng-bind-html="career.custom_fields.summaryHtml"></p>
+      <p><strong>Key facts on fit: </strong><p ng-bind-html="career.custom_fields.keyFactsOnFit"></p></p>
+      <div style="clear: both;"></div>
     </article>
   </div>
 </div>
