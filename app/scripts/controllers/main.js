@@ -7,11 +7,7 @@
  * # MainCtrl
  * Controller of the appApp
  */
-angular.module('appApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+angular.module('ccApp')
+  .controller('MainCtrl', ['$scope', 'Quiz', function($scope, Quiz) {
+    $scope.entries = Quiz.entries;
+  }]);

@@ -9,13 +9,14 @@
  * Main module of the application.
  */
 angular
-  .module('appApp', [
+  .module('ccApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'rzModule'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -23,11 +24,6 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         controllerAs: 'main'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
       })
       .otherwise({
         redirectTo: '/'
