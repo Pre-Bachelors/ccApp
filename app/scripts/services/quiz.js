@@ -46,31 +46,39 @@ angular.module('ccApp')
     };
 
 	  // get careers (http)
-	  $http.get('https://80000hours.org/wp-json/career_profiles')
-			.success(function(data){
-			  service.careers = JSON.parse(data);
-			})
-			.error(function(data, status){
-			  alert('error!');
-    });
+	/*	$http.jsonp('https://80000hours.org/wp-json/career_profiles')
+		.then(function(data) {
+			service.careers = JSON.parse(data);
+		}, function() {
+			alert('error!');
+		});
+		$http.jsonp('https://80000hours.org/wp-json/career_profiles', {type:"GET", dataType: "jsonp"}).then(function(data) {
+			service.careers = JSON.parse(data);
+		}, function() {
+			alert('error!');
+		});
+		$http({
+		  method: 'GET',
+		  url: 'https://80000hours.org/wp-json/career_profiles',
+		}).then(function successCallback(response) {
+		    // this callback will be called asynchronously
+		    // when the response is available
+		  }, function errorCallback(response) {
+		    // called asynchronously if an error occurs
+		    // or server returns response with an error status.
+		}); */
+
+		$http.get('scripts/json/career_profiles.json')
+		.then(function(data) {
+			service.careers = data;
+		}, function() {
+			alert('error!');
+		});
+
 
 	  // save answers
 
 	  // sort/update careers --> slider callback --> on change or on end; show ticks, show ticks values, ceil
-
-	  /*
-		$scope.slider_ticks_values_tooltip = {
-	        value: 5,
-	        options: {
-	            ceil: 10,
-	            floor: 0,
-	            showTicksValues: true,
-	            ticksValuesTooltip: function(v) {
-	                return 'Tooltip for ' + v; // cange to very comfortable, not comfortable, somewhat comfortable, etc - if elses? case switch?
-	            }
-	        }
-	    };
-	  */
 
 	  return service;
 	});
