@@ -63,7 +63,7 @@ angular.module('ccApp')
 				  // filter out every career that is bigger than answer val
 					  var career_level = parseInt(career.custom_fields[answer.equiv]);
 					  var threshold = answer.value + 1;
-			  		career.show = ( career_level < threshold );
+			  		career.show = ( career_level <= threshold );
 			  	});
 		  	} else {
 		  		console.log('no careers');

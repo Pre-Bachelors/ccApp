@@ -29,30 +29,15 @@ angular.module('ccApp')
 				    	$scope.careers.push(career);
 				    }
 					});
+					$scope.careers = _.sortBy($scope.careers, function(career){ return (0 - career.custom_fields.careerCapital); });
 	    	}
       }
     };
 
-
+/*
     // load careers
 		$scope.$watch(function () { return Quiz.receivedFlag; }, function () {
     	console.log('flag changed');
     		$scope.careers = Quiz.careers;
-	  });
-
-  	// update careers displayed if slider values change
-    $scope.$watch('entries', function (careers) {
-    	console.log('entries changed');
-    	if(Quiz.careers) {
-    		console.log('called');
-	    	$scope.careers = [];
-	    	Quiz.careers.forEach(function(career) {
-			    // if show, add career
-			    if (career.show) {
-			    	$scope.careers.push(career);
-			    }
-				});
-    	}
-	  });
-
+	  });*/
 });
