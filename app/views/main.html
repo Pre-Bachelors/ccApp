@@ -4,8 +4,16 @@
     <h2>{{entry.subject}}</h2>
     <rzslider rz-slider-model="entry.value" rz-slider-options="sliderConfig"></rzslider>
   </article>
-  
-  <article style="background:#eee;" ng-repeat="career in careers">
-    <h3>{{career.title}}</h3>
-  </article>
+
+
+  <div id="results">
+    <hr>
+    <article ng-repeat="career in careers">
+      <h2>{{career.title}} </h2>
+      <img src="{{career.thumbnail_url}}" />
+      <p>{{career.custom_fields.summaryHtml}}</p>
+      <p><strong>Key facts on fit: </strong>{{career.custom_fields.keyFactsOnFit}}</p>
+    </article>
+  </div>
 </div>
+

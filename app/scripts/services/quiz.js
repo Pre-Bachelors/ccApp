@@ -44,8 +44,15 @@ angular.module('ccApp')
 		$http.get('scripts/json/career_profiles.json')
 		.then(function(response) {
 			service.careers = response.data;
-			service.careers.forEach(function(entry) {
-				entry.title = helpers.decodeHtml(entry.title);
+			service.careers.forEach(function(career) {
+				// decode titles (i.e. &nbsp;)
+				career.title = helpers.decodeHtml(career.title);
+				// invert competitiveness score to work with selection algorithm
+				career.custom_fields.easeOfCompetition = 6 - career.custom_fields.easeOfCompetition;
+				// decode img url
+				career.thumbnail_url = helpers.decodeHtml(career.featured_image.attachment_meta.sizes.thumbnail.url);
+				// decode description text
+				career.custom_fields.summaryHtml = helpers.decodeHtml(career.custom_fields.summaryHtml);
 			});
 			service.receivedFlag = true;
 		}, function() {

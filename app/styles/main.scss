@@ -89,3 +89,40 @@ body {
     border-bottom: 0;
   }
 }
+
+
+/* Custom styles */
+
+#results {
+  margin-top: 40px;
+  
+  hr {
+    border: 0;
+    height: 1px;
+    background: #666;
+    background-image: linear-gradient(to right, #ccc, #666, #ccc);
+  }
+
+  article {
+    padding-top: 10px;
+    margin-top: 5%;
+    img {
+      width: 30%;
+      float: left;
+      margin: 0.5% 3% 0 0;
+      max-height: 190px;
+      max-width: 283.5px;
+    }
+    h2 {
+      text-align: left;
+      color: #0db9f0;
+    }
+    p {
+      text-align: left;
+      line-height: 1.3em;
+      &:last-child {
+        margin-top: 0.3em;
+      }
+    }
+  }
+}
