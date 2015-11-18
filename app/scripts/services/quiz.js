@@ -52,32 +52,33 @@ angular.module('ccApp')
 			alert('error!');
 		});
 
+		service.careerSuitable = function(career_level, threshold) {
+			return ((threshold > 3) || (threshold == 3 && career_level < 5) || (threshold < 3 && career_level < 4));
+		};
+
 
 	  // update careers 
 	  service.updateCareers = function(entries) {
+		// reset all careers
+		service.careers.forEach(function(career) {career.show = true;});
+
 	  	// for every answer
 	  	entries.forEach(function(answer) {
 	  		if (service.careers) {
 		  		// for every career		  		
 		  		service.careers.forEach(function(career) {
-				  // filter out every career that is bigger than answer val
-					  var career_level = parseInt(career.custom_fields[answer.equiv]);
-					  var threshold = answer.value + 1;
-			  		career.show = ( career_level <= threshold );
+		  			if(career.show) { // if other params have not already invalidated this career
+					  // filter out every career that isn't suitable
+						  var career_level = parseInt(career.custom_fields[answer.equiv]);
+						  var threshold = answer.value + 1;
+				  		career.show = service.careerSuitable(career_level, threshold);
+				  	}
 			  	});
 		  	} else {
 		  		console.log('no careers');
 		  	}
 	  	});
 	  };
-
-
-// sort careers
-
-
-
-// --> slider callback --> on change or on end; show ticks, show ticks values, ceil
-// every time it changes, redo service.careers = service.all_careers;
 
 	  return service;
 	});

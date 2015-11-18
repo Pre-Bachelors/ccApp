@@ -29,6 +29,7 @@ angular.module('ccApp')
 				    	$scope.careers.push(career);
 				    }
 					});
+					// sort careers by career capital (decending order)
 					$scope.careers = _.sortBy($scope.careers, function(career){ return (0 - career.custom_fields.careerCapital); });
 	    	}
       }
