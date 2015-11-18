@@ -10,4 +10,5 @@
 angular.module('ccApp')
   .controller('MainCtrl', ['$scope', 'Quiz', function($scope, Quiz) {
     $scope.entries = Quiz.entries;
+    $scope.sliderConfig = Quiz.sliderConfig;
   }]);
