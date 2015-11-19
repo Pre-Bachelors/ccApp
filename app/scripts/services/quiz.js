@@ -41,7 +41,7 @@ angular.module('ccApp')
 	     
 	  // get careers
 	  // done locally due to cross-domain ajax requests constraints
-		$http.get('scripts/json/career_profiles.json')
+		$http.get('json/career_profiles.json')
 		.then(function(response) {
 			service.careers = response.data;
 			service.careers.forEach(function(career) {
