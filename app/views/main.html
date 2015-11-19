@@ -1,8 +1,7 @@
 <div>
-  <h2>How comfortable are you with:</h2>
   <article ng-repeat="entry in entries">
-    <h3>{{entry.subject}}</h3>
-    <rzslider rz-slider-model="entry.value" rz-slider-options="sliderConfig"></rzslider>
+    <h3>{{entry.prompt}}</h3>
+    <rzslider rz-slider-model="entry.value" rz-slider-options="entry.sliderConfig"></rzslider>
   </article>
 
 

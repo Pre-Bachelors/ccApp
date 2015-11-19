@@ -18,22 +18,30 @@ angular.module('ccApp')
 	  service.entries = [
 	  	{
 	  	  subject:'Maths',
+	  	  prompt: 'How strong are your math and science skills?',
 	  	  value: 0,
+	  	  sliderLevels: ['Unworkable', 'Okay', 'Good', 'Strong', 'Excellent'],
 	  	  equiv: 'requiresQuantitativeSkills'	  	
 	  	},
 	  	{
 	  	  subject:'Writing and Speaking',
+	  	  prompt: 'How good are you at writing and speaking?',
 	  	  value: 0,
+	  	  sliderLevels: ['Unworkable', 'Okay', 'Good', 'Pretty good', 'Excellent'],
 	  	  equiv: 'requiresVerbalAndSocialSkills'	  		  	
 	  	},
 	  	{
 	  	  subject:'Competitive',
+	  	  prompt: 'What level of competitiveness are your comfortable with?',
 	  	  value: 0,
+	  	  sliderLevels: ['None', 'A small amount', 'A reasonable amount', 'Some', 'A big amount'],
 	  	  equiv: 'easeOfCompetition'	  		  	
 	  	},
 	  	{
 	  	  subject:'Uncertain',
+	  	  prompt: 'How open do you want to keep your options?',
 	  	  value: 0,
+	  	  sliderLevels: ['Not much', 'Reasonably open', 'Open', 'Very open', 'Maximize options'],
 	  	  equiv: 'optionValue'	  		  	
 	  	}
 	  ];
@@ -59,8 +67,15 @@ angular.module('ccApp')
 			alert('error!');
 		});
 
-		service.careerSuitable = function(career_level, threshold) {
-			return ((threshold > 3) || (threshold == 3 && career_level < 5) || (threshold < 3 && career_level < 4));
+		service.careerSuitable = function(career_level, threshold, options) {
+			if (options == 'Competitive') {
+				return ((threshold > 4) || (threshold == 4 && career_level < 5) || (threshold == 3 && career_level < 4) || (threshold == 2 && career_level < 3) || (career_level < 2));
+			} else if (options == 'Uncertain') {
+				// this one is reversed...
+				return ((threshold < 3) || (threshold == 5 && career_level < 3) || (career_level < 5));
+			} else {
+				return ((threshold > 3) || (threshold == 3 && career_level < 5) || (threshold < 3 && career_level < 4));
+			}
 		};
 
 
@@ -78,7 +93,7 @@ angular.module('ccApp')
 					  // filter out every career that isn't suitable
 						  var career_level = parseInt(career.custom_fields[answer.equiv]);
 						  var threshold = answer.value + 1;
-				  		career.show = service.careerSuitable(career_level, threshold);
+				  		career.show = service.careerSuitable(career_level, threshold, answer.subject);
 				  	}
 			  	});
 		  	} else {
