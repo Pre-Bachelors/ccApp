@@ -7,7 +7,7 @@
 
   <div id="results">
     <hr>
-    <article ng-repeat="career in careers">
+    <article ng-repeat="career in careers | limitTo: btn.limit">
       <h2>{{career.title}} </h2>
       <img src="{{career.thumbnail_url}}" />
       <p ng-bind-html="career.custom_fields.summaryHtml"></p>
@@ -15,5 +15,5 @@
       <div style="clear: both;"></div>
     </article>
   </div>
+  <button class="btn btn-primary center-block" ng-hide="btn.hide" ng-click="btn.limit = btn.limit + 10">Show more</button>
 </div>
-

@@ -11,6 +11,10 @@ angular.module('ccApp')
   .controller('MainCtrl', function($scope, Quiz) {
     $scope.entries = Quiz.entries;
     $scope.careers = Quiz.careers;
+    $scope.btn = {
+      hide: true,
+      limit: 5
+    };
 
     // config slider
 	  $scope.entries.forEach(function(entry) {
@@ -21,7 +25,6 @@ angular.module('ccApp')
         stepsArray: entry.sliderLevels,
         onChange: function () {
         	// update careers displayed if slider values change
-      		console.log('on change');
           if(Quiz.careers) {
           	Quiz.updateCareers($scope.entries);
   		    	$scope.careers = [];
@@ -65,4 +68,11 @@ angular.module('ccApp')
       };
   });
 
+    // watch changes to career & btn limit
+    $scope.$watch('careers', function () {
+      $scope.btn.hide = !($scope.btn.limit <= $scope.careers.length);
+    });
+    $scope.$watch('btn.limit', function () {
+      $scope.btn.hide = !($scope.btn.limit <= $scope.careers.length);
+    });
 });
