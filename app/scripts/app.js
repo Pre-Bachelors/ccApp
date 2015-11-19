@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc overview
- * @name appApp
+ * @name ccApp
  * @description
- * # appApp
+ * # ccApp
  *
  * Main module of the application.
  */
