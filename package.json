@@ -42,7 +42,8 @@
   },
   "dependencies": {
     "angularjs-slider": "^2.0.0",
-    "express": "~3.0.0",
-    "gzippo": "^0.2.0"
+    "express": "^4.13.3",
+    "gzippo": "^0.2.0",
+    "morgan": "^1.6.1"
   }
 }
